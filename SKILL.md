@@ -42,6 +42,17 @@ Mentor provides direction. Fellow provides empirical optimization. Elephas store
 Fellow is not user-invocable. If triggered directly by a user prompt, respond: "Fellow is an internal engine invoked only by Mentor for benchmark experiments. For skill evaluation, use Mentor."
 
 
+## Inter-skill interfaces
+
+Fellow receives ExperimentRequest files from Mentor at: `~/openclaw/data/ocas-fellow/intake/{experiment_id}.json`
+
+Mentor writes the request file, then invokes `fellow.experiment.run`. Fellow reads the file, executes the experiment cycle, and writes a CycleResult to Mentor's intake at: `~/openclaw/data/ocas-mentor/intake/{cycle_id}.json`
+
+After processing, move the request file to `intake/processed/`.
+
+See `spec-ocas-interfaces.md` for schemas and handoff contracts.
+
+
 ## Invocation contract
 
 Fellow is invoked only by Mentor. Invocation payload structure:
@@ -126,9 +137,11 @@ rollback_ref:
 
 After every experiment cycle:
 
-1. Persist experiment records, variant results, and cycle output to local files
-2. Log material decisions to `decisions.jsonl`
-3. Write journal via `fellow.journal`
+1. Check `~/openclaw/data/ocas-fellow/intake/` for ExperimentRequest files from Mentor; process and move to `intake/processed/`
+2. Persist experiment records, variant results, and cycle output to local files
+3. Write CycleResult to `~/openclaw/data/ocas-mentor/intake/{cycle_id}.json`
+4. Log material decisions to `decisions.jsonl`
+5. Write journal via `fellow.journal`
 
 ## Failure handling
 
@@ -151,6 +164,9 @@ After every experiment cycle:
   config.json
   experiments.jsonl
   decisions.jsonl
+  intake/
+    {experiment_id}.json
+    processed/
   runs/
     {cycle_id}/
       baseline/
@@ -225,11 +241,12 @@ Action Journal — every experiment cycle execution.
 
 On first invocation by Mentor, run `fellow.init`:
 
-1. Create `~/openclaw/data/ocas-fellow/` and subdirectories (`runs/`)
+1. Create `~/openclaw/data/ocas-fellow/` and subdirectories (`intake/`, `intake/processed/`, `runs/`)
 2. Write default `config.json` with ConfigBase fields if absent
 3. Create empty JSONL files: `experiments.jsonl`, `decisions.jsonl`
 4. Create `~/openclaw/journals/ocas-fellow/`
-5. Log initialization as a DecisionRecord in `decisions.jsonl`
+5. Ensure `~/openclaw/data/ocas-mentor/intake/` exists (create if missing)
+6. Log initialization as a DecisionRecord in `decisions.jsonl`
 
 Fellow is purely reactive (Mentor-invoked only). No cron jobs or heartbeat entries.
 
