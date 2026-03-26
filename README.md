@@ -1,37 +1,49 @@
-# 🤝 Fellow
+# 🧪 Fellow
 
-Empirical experimentation engine for skill variant evaluation.
-
-**Skill name:** `ocas-fellow`
-**Version:** 2.2.0
-**Type:** system
-**Layer:** Meta
-**Author:** Indigo Karasu
-
----
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `skill.json` | Package metadata and routing description |
-| `SKILL.md` | Operational instructions for the agent |
-| `references/` | Support files referenced by SKILL.md |
-
----
-
-## Changelog
-
-### 2.2.0 (2026-03-23)
-
-- Updated v2.2.0 release with integrated system improvements
-- Added routing aliases and trigger phrases for improved invocation
-- Cross-skill references optimized for clarity
+Fellow is the system's empirical optimization engine, invoked exclusively by Mentor to determine which implementation of a skill, prompt, heuristic, or workflow actually performs best -- not which one looks best on paper. It runs controlled experiments with a fixed benchmark and compute budget, establishes a fresh baseline before testing any variant, and returns the winning result with full mutation lineage so every promotion is traceable and reversible.
 
 ---
 
 ## Overview
 
-Empirical experimentation engine for skill variant evaluation.
+Fellow exists because "looks better on paper" is not the same as "works better in practice." When Mentor identifies a skill or heuristic that needs improvement, Fellow takes over the empirical work -- establishing a fresh baseline, generating and testing controlled variants within a constrained mutation surface, and returning the winning implementation with full lineage. Every experiment runs against a fixed benchmark and compute budget so results across different targets remain comparable and every promotion is reversible. Fellow is not user-invocable; it is called only by Mentor.
 
-For full implementation details, see `SKILL.md`.
+## Commands
+
+| Command | Description |
+|---|---|
+| `fellow.experiment.run` | Execute an experiment cycle from a Mentor invocation payload |
+| `fellow.experiment.status` | Current experiment state if a cycle is in progress |
+| `fellow.journal` | Write journal for the current run |
+
+## Setup
+
+`fellow.init` runs automatically on first invocation by Mentor and creates all required directories, config.json, and JSONL files. No manual setup is required. Fellow is purely reactive -- invoked only by Mentor, with no cron jobs or heartbeat entries.
+
+## Dependencies
+
+**OCAS Skills**
+- [Mentor](https://github.com/indigokarasu/mentor) -- sole invoker; provides experiment programs and approves promotions
+- [Elephas](https://github.com/indigokarasu/elephas) -- stores experiment lineage and artifacts via signal intake
+
+**External**
+- None
+
+## Scheduled Tasks
+
+This skill is purely reactive. No scheduled tasks. Invoked only by Mentor.
+
+## Changelog
+
+### v2.2.0 -- March 22, 2026
+- Routing aliases and trigger phrases
+
+### v2.1.0 -- March 22, 2026
+- Full experiment lifecycle implementation: baseline, variant generation, benchmark execution, metric extraction, promotion
+- Invocation contract schema
+
+### v2.0.0 -- March 18, 2026
+- Initial release as part of the unified OCAS skill suite
+---
+
+*Fellow is part of the [OpenClaw Agent Suite](https://github.com/indigokarasu) -- a collection of interconnected skills for personal intelligence, autonomous research, and continuous self-improvement. Each skill owns a narrow responsibility and communicates with others through structured signal files, shared journals, and Chronicle, a long-term knowledge graph that accumulates verified facts over time.*
