@@ -2,7 +2,7 @@
 name: ocas-fellow
 source: https://github.com/indigokarasu/fellow
 install: openclaw skill install https://github.com/indigokarasu/fellow
-description: Use only when invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows via benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable -- called only by Mentor. Do not use for skill building (use Forge), behavioral pattern analysis (use Corvus), or user-initiated evaluation requests (use Mentor).
+description: Use only when invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows via benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable -- called only by Mentor. Trigger phrases: 'update fellow'. Do not use for skill building (use Forge), behavioral pattern analysis (use Corvus), or user-initiated evaluation requests (use Mentor).
 metadata: {"openclaw":{"emoji":"🧪"}}
 ---
 
