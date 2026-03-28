@@ -15,6 +15,7 @@ Fellow exists because "looks better on paper" is not the same as "works better i
 | `fellow.experiment.run` | Execute an experiment cycle from a Mentor invocation payload |
 | `fellow.experiment.status` | Current experiment state if a cycle is in progress |
 | `fellow.journal` | Write journal for the current run |
+| `fellow.update` | Pull latest from GitHub source (preserves journals and data) |
 
 ## Setup
 
@@ -31,9 +32,14 @@ Fellow exists because "looks better on paper" is not the same as "works better i
 
 ## Scheduled Tasks
 
-This skill is purely reactive. No scheduled tasks. Invoked only by Mentor.
+| Job | Mechanism | Schedule | Command |
+|---|---|---|---|
+| `fellow:update` | cron | `0 0 * * *` (midnight daily) | Self-update from GitHub source | Invoked only by Mentor.
 
 ## Changelog
+
+### v2.2.1 -- March 27, 2026
+- Added `fellow.update` command and midnight cron for automatic version-checked self-updates
 
 ### v2.2.0 -- March 22, 2026
 - Routing aliases and trigger phrases

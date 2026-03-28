@@ -1,0 +1,7 @@
+{
+  "name": "ocas-fellow",
+  "version": "2.2.0",
+  "description": "Fellow: empirical experimentation engine. Invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows using benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable -- called only by Mentor.",
+  "author": "Indigo Karasu",
+  "email": "mx.indigo.karasu@gmail.com"
+}
