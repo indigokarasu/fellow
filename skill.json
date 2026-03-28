@@ -11,7 +11,26 @@
     ],
     "write": [
       "~/openclaw/data/ocas-fellow/",
-      "~/openclaw/journals/ocas-fellow/"
+      "~/openclaw/journals/ocas-fellow/",
+      "~/openclaw/data/ocas-mentor/intake/"
     ]
-  }
+  },
+  "self_update": {
+    "source": "https://github.com/indigokarasu/fellow",
+    "mechanism": "version-checked tarball from GitHub via gh CLI",
+    "command": "fellow.update",
+    "requires_binaries": [
+      "gh",
+      "tar",
+      "python3"
+    ]
+  },
+  "scheduled_tasks": [
+    {
+      "name": "fellow:update",
+      "schedule": "0 0 * * *",
+      "command": "fellow.update",
+      "description": "Self-update from GitHub source"
+    }
+  ]
 }
