@@ -36,6 +36,9 @@ Fellow does not own: deciding what to improve (Mentor), building skill packages 
 
 Mentor provides direction. Fellow provides empirical optimization. Elephas stores lineage and artifacts.
 
+## Ontology types
+
+Fellow does not extract entities and does not emit Signals to Elephas. Fellow operates on skill-internal experiment data only.
 
 ## Invocation guard
 

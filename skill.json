@@ -4,6 +4,7 @@
   "description": "Fellow: empirical experimentation engine. Invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows using benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable -- called only by Mentor. Trigger phrases: 'update fellow'.",
   "author": "Indigo Karasu",
   "email": "mx.indigo.karasu@gmail.com",
+  "skill_type": "system",
   "filesystem": {
     "read": [
       "~/openclaw/data/ocas-fellow/",
