@@ -36,9 +36,6 @@ Fellow does not own: deciding what to improve (Mentor), building skill packages 
 
 Mentor provides direction. Fellow provides empirical optimization. Elephas stores lineage and artifacts.
 
-## Ontology types
-
-Fellow does not extract entities and does not emit Signals to Elephas. Fellow operates on skill-internal experiment data only.
 
 ## Invocation guard
 
@@ -47,11 +44,9 @@ Fellow is not user-invocable. If triggered directly by a user prompt, respond: "
 
 ## Inter-skill interfaces
 
-Fellow receives ExperimentRequest files from Mentor at: `~/openclaw/data/ocas-fellow/intake/{experiment_id}.json`
+**Mentor → Fellow (cooperative read):** Fellow reads ExperimentRequest files from `/workspace/openclaw/data/ocas-mentor/experiment-requests/`. Mentor writes the request then invokes `fellow.experiment.run`. Fellow tracks consumed `experiment_id` values in `requests_processed.jsonl`. Fellow does not write to Mentor's directories.
 
-Mentor writes the request file, then invokes `fellow.experiment.run`. Fellow reads the file, executes the experiment cycle, and writes a CycleResult to Mentor's intake at: `~/openclaw/data/ocas-mentor/intake/{cycle_id}.json`
-
-After processing, move the request file to `intake/processed/`.
+**Fellow → Mentor (cooperative read):** Fellow writes CycleResult files to `/workspace/openclaw/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory. Fellow does not write to Mentor's directories.
 
 See `spec-ocas-interfaces.md` for schemas and handoff contracts.
 
@@ -140,9 +135,9 @@ rollback_ref:
 
 After every experiment cycle:
 
-1. Check `~/openclaw/data/ocas-fellow/intake/` for ExperimentRequest files from Mentor; process and move to `intake/processed/`
+1. Read ExperimentRequest files from `/workspace/openclaw/data/ocas-mentor/experiment-requests/`. Track consumed `experiment_id` values in `requests_processed.jsonl`.
 2. Persist experiment records, variant results, and cycle output to local files
-3. Write CycleResult to `~/openclaw/data/ocas-mentor/intake/{cycle_id}.json`
+3. Write CycleResult to `/workspace/openclaw/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory.
 4. Log material decisions to `decisions.jsonl`
 5. Write journal via `fellow.journal`
 
@@ -164,20 +159,20 @@ After every experiment cycle:
 ## Storage layout
 
 ```
-~/openclaw/data/ocas-fellow/
+/workspace/openclaw/data/ocas-fellow/
   config.json
   experiments.jsonl
   decisions.jsonl
-  intake/
-    {experiment_id}.json
-    processed/
+  requests_processed.jsonl
+  results/
+    {cycle_id}.json
   runs/
     {cycle_id}/
       baseline/
       variant-001/
       variant-002/
 
-~/openclaw/journals/ocas-fellow/
+/workspace/openclaw/journals/ocas-fellow/
   YYYY-MM-DD/
     {run_id}.json
 ```
@@ -187,7 +182,7 @@ Default config.json:
 ```json
 {
   "skill_id": "ocas-fellow",
-  "skill_version": "2.3.0",
+  "skill_version": "2.4.0",
   "config_version": "1",
   "created_at": "",
   "updated_at": "",
@@ -245,12 +240,11 @@ Action Journal — every experiment cycle execution.
 
 On first invocation by Mentor, run `fellow.init`:
 
-1. Create `~/openclaw/data/ocas-fellow/` and subdirectories (`intake/`, `intake/processed/`, `runs/`)
+1. Create `/workspace/openclaw/data/ocas-fellow/` and subdirectories (`results/`, `runs/`)
 2. Write default `config.json` with ConfigBase fields if absent
-3. Create empty JSONL files: `experiments.jsonl`, `decisions.jsonl`
-4. Create `~/openclaw/journals/ocas-fellow/`
-5. Ensure `~/openclaw/data/ocas-mentor/intake/` exists (create if missing)
-6. Register cron job `fellow:update` if not already present (check `openclaw cron list` first)
+3. Create empty JSONL files: `experiments.jsonl`, `decisions.jsonl`, `requests_processed.jsonl`
+4. Create `/workspace/openclaw/journals/ocas-fellow/`
+5. Register cron job `fellow:update` if not already present (check `openclaw cron list` first)
 7. Log initialization as a DecisionRecord in `decisions.jsonl`
 
 ## Background tasks
