@@ -38,6 +38,11 @@ Fellow exists because "looks better on paper" is not the same as "works better i
 
 ## Changelog
 
+### v2.5.0 -- April 2, 2026
+- Structured entity observations in journal payloads (`entities_observed`, `relationships_observed`, `preferences_observed`)
+- `user_relevance` tagging on journal observations (default `agent_only` for experiment entities, `user` for user-preference experiments)
+- Elephas journal cooperation in skill cooperation section
+
 ### v2.3.0 -- March 27, 2026
 - Added `fellow.update` command and midnight cron for automatic version-checked self-updates
 

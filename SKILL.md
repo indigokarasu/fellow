@@ -228,12 +228,23 @@ skill_okrs:
 ## Optional skill cooperation
 
 - Mentor — sole invoker; provides experiment programs and approves promotions
-- Elephas — stores experiment lineage and artifacts via signal intake
+- Elephas — stores experiment lineage and artifacts via signal intake; journal entity observations consumed during Chronicle ingestion
 
 
 ## Journal outputs
 
 Action Journal — every experiment cycle execution.
+
+When entities are encountered during runs, journals should include the following fields in `decision.payload`:
+
+- `entities_observed` — entities noticed during the run (e.g., Concept/Idea for hypotheses and experiment results, Thing/DigitalArtifact for experiment artifacts, Concept/Event for experiment milestones)
+- `relationships_observed` — relationships between observed entities
+- `preferences_observed` — any user preferences or behavioral preferences surfaced
+
+Each entity observation must include a `user_relevance` field:
+- `user` — the entity is directly related to the user's world (e.g., experiments about user preferences or user-facing features)
+- `agent_only` — encountered incidentally as part of system-internal experimentation (most Fellow entities fall here)
+- `unknown` — relevance to the user is unclear
 
 
 ## Initialization
