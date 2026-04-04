@@ -301,3 +301,13 @@ public
 |---|---|
 | `references/schemas.md` | Before creating experiments, variants, or cycle outputs |
 | `references/journal.md` | Before fellow.journal; at end of every run |
+
+## Update command
+
+This skill self-updates every 24 hours via:
+
+```bash
+openclaw fellow.update
+```
+
+This pulls the latest version from GitHub and restarts the skill's background tasks if applicable.
