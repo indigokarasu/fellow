@@ -37,6 +37,16 @@ Fellow does not own: deciding what to improve (Mentor), building skill packages 
 Mentor provides direction. Fellow provides empirical optimization. Elephas stores lineage and artifacts.
 
 
+## Ontology types
+
+Fellow observes entity types during experiment execution:
+- **Concept/Idea** — hypotheses, experiment designs, potential improvements
+- **Thing/DigitalArtifact** — experiment artifacts, baseline runs, variant packages, metric reports
+- **Concept/Event** — experiment cycles, baseline establishment events, promotion decisions
+
+Fellow does not emit Signals to Elephas for these observations. Journal entries may include entity observations for internal lineage tracking, but they are not promoted to Chronicle. Elephas consumes Fellow journals for reference only and does not extract Chronicle candidates from them.
+
+
 ## Invocation guard
 
 Fellow is not user-invocable. If triggered directly by a user prompt, respond: "Fellow is an internal engine invoked only by Mentor for benchmark experiments. For skill evaluation, use Mentor."
