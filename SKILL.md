@@ -1,9 +1,42 @@
 ---
 name: ocas-fellow
-source: https://github.com/indigokarasu/fellow
-install: openclaw skill install https://github.com/indigokarasu/fellow
-description: Use only when invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows via benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable -- called only by Mentor. Trigger phrases: 'update fellow'. Do not use for skill building (use Forge), behavioral pattern analysis (use Corvus), or user-initiated evaluation requests (use Mentor).
-metadata: {"openclaw":{"emoji":"🧪"}}
+description: >
+  Fellow: empirical experimentation engine. Invoked by Mentor to evaluate,
+  compare, and promote improvements to OCAS skills, prompts, heuristics, and
+  workflows using benchmark-driven experiments. Returns best variant result
+  with lineage. Not user-invocable -- called only by Mentor. Trigger phrases:
+  'update fellow'.
+metadata:
+  author: Indigo Karasu
+  email: mx.indigo.karasu@gmail.com
+  version: "2.6.0"
+  hermes:
+    tags: [experimentation, benchmarks, evaluation]
+    category: evolution
+    cron:
+      - name: "fellow:update"
+        schedule: "0 0 * * *"
+        command: "fellow.update"
+  openclaw:
+    skill_type: system
+    visibility: public
+    filesystem:
+      read:
+        - "$OCAS_DATA_ROOT/data/ocas-fellow/"
+        - "$OCAS_DATA_ROOT/journals/ocas-fellow/"
+      write:
+        - "$OCAS_DATA_ROOT/data/ocas-fellow/"
+        - "$OCAS_DATA_ROOT/journals/ocas-fellow/"
+        - "$OCAS_DATA_ROOT/data/ocas-mentor/intake/"
+    self_update:
+      source: "https://github.com/indigokarasu/fellow"
+      mechanism: "version-checked tarball from GitHub via gh CLI"
+      command: "fellow.update"
+      requires_binaries: [gh, tar, python3]
+    cron:
+      - name: "fellow:update"
+        schedule: "0 0 * * *"
+        command: "fellow.update"
 ---
 
 # Fellow
@@ -265,7 +298,7 @@ On first invocation by Mentor, run `fellow.init`:
 2. Write default `config.json` with ConfigBase fields if absent
 3. Create empty JSONL files: `experiments.jsonl`, `decisions.jsonl`, `requests_processed.jsonl`
 4. Create `/workspace/openclaw/journals/ocas-fellow/`
-5. Register cron job `fellow:update` if not already present (check `openclaw cron list` first)
+5. Register cron job `fellow:update` if not already present (check the platform scheduling registry first)
 7. Log initialization as a DecisionRecord in `decisions.jsonl`
 
 ## Background tasks
@@ -275,7 +308,7 @@ On first invocation by Mentor, run `fellow.init`:
 | `fellow:update` | cron | `0 0 * * *` (midnight daily) | `fellow.update` |
 
 ```
-openclaw cron add --name fellow:update --schedule "0 0 * * *" --command "fellow.update" --sessionTarget isolated --lightContext true --timezone America/Los_Angeles
+# Task declared in SKILL.md frontmatter metadata.{platform}.cron
 ```
 
 
