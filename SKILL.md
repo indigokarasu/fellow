@@ -9,7 +9,7 @@ description: >
 metadata:
   author: Indigo Karasu
   email: mx.indigo.karasu@gmail.com
-  version: "2.6.0"
+  version: "2.6.1"
   hermes:
     tags: [experimentation, benchmarks, evaluation]
     category: evolution
@@ -22,12 +22,11 @@ metadata:
     visibility: public
     filesystem:
       read:
-        - "$OCAS_DATA_ROOT/data/ocas-fellow/"
-        - "$OCAS_DATA_ROOT/journals/ocas-fellow/"
+        - "{agent_root}/commons/data/ocas-fellow/"
+        - "{agent_root}/commons/journals/ocas-fellow/"
       write:
-        - "$OCAS_DATA_ROOT/data/ocas-fellow/"
-        - "$OCAS_DATA_ROOT/journals/ocas-fellow/"
-        - "$OCAS_DATA_ROOT/data/ocas-mentor/intake/"
+        - "{agent_root}/commons/data/ocas-fellow/"
+        - "{agent_root}/commons/journals/ocas-fellow/"
     self_update:
       source: "https://github.com/indigokarasu/fellow"
       mechanism: "version-checked tarball from GitHub via gh CLI"
@@ -87,9 +86,9 @@ Fellow is not user-invocable. If triggered directly by a user prompt, respond: "
 
 ## Inter-skill interfaces
 
-**Mentor → Fellow (cooperative read):** Fellow reads ExperimentRequest files from `/workspace/openclaw/data/ocas-mentor/experiment-requests/`. Mentor writes the request then invokes `fellow.experiment.run`. Fellow tracks consumed `experiment_id` values in `requests_processed.jsonl`. Fellow does not write to Mentor's directories.
+**Mentor → Fellow (cooperative read):** Fellow reads ExperimentRequest files from `{agent_root}/commons/data/ocas-mentor/experiment-requests/`. Mentor writes the request then invokes `fellow.experiment.run`. Fellow tracks consumed `experiment_id` values in `requests_processed.jsonl`. Fellow does not write to Mentor's directories.
 
-**Fellow → Mentor (cooperative read):** Fellow writes CycleResult files to `/workspace/openclaw/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory. Fellow does not write to Mentor's directories.
+**Fellow → Mentor (cooperative read):** Fellow writes CycleResult files to `{agent_root}/commons/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory. Fellow does not write to Mentor's directories.
 
 See `spec-ocas-interfaces.md` for schemas and handoff contracts.
 
@@ -178,9 +177,9 @@ rollback_ref:
 
 After every experiment cycle:
 
-1. Read ExperimentRequest files from `/workspace/openclaw/data/ocas-mentor/experiment-requests/`. Track consumed `experiment_id` values in `requests_processed.jsonl`.
+1. Read ExperimentRequest files from `{agent_root}/commons/data/ocas-mentor/experiment-requests/`. Track consumed `experiment_id` values in `requests_processed.jsonl`.
 2. Persist experiment records, variant results, and cycle output to local files
-3. Write CycleResult to `/workspace/openclaw/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory.
+3. Write CycleResult to `{agent_root}/commons/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory.
 4. Log material decisions to `decisions.jsonl`
 5. Write journal via `fellow.journal`
 
@@ -202,7 +201,7 @@ After every experiment cycle:
 ## Storage layout
 
 ```
-/workspace/openclaw/data/ocas-fellow/
+{agent_root}/commons/data/ocas-fellow/
   config.json
   experiments.jsonl
   decisions.jsonl
@@ -215,7 +214,7 @@ After every experiment cycle:
       variant-001/
       variant-002/
 
-/workspace/openclaw/journals/ocas-fellow/
+{agent_root}/commons/journals/ocas-fellow/
   YYYY-MM-DD/
     {run_id}.json
 ```
@@ -271,7 +270,7 @@ skill_okrs:
 ## Optional skill cooperation
 
 - Mentor — sole invoker; provides experiment programs and approves promotions
-- Elephas — stores experiment lineage and artifacts via signal intake; journal entity observations consumed during Chronicle ingestion
+- Elephas — stores experiment lineage and artifacts via journal signal payloads; journal entity observations consumed during Chronicle ingestion
 
 
 ## Journal outputs
@@ -294,10 +293,10 @@ Each entity observation must include a `user_relevance` field:
 
 On first invocation by Mentor, run `fellow.init`:
 
-1. Create `/workspace/openclaw/data/ocas-fellow/` and subdirectories (`results/`, `runs/`)
+1. Create `{agent_root}/commons/data/ocas-fellow/` and subdirectories (`results/`, `runs/`)
 2. Write default `config.json` with ConfigBase fields if absent
 3. Create empty JSONL files: `experiments.jsonl`, `decisions.jsonl`, `requests_processed.jsonl`
-4. Create `/workspace/openclaw/journals/ocas-fellow/`
+4. Create `{agent_root}/commons/journals/ocas-fellow/`
 5. Register cron job `fellow:update` if not already present (check the platform scheduling registry first)
 7. Log initialization as a DecisionRecord in `decisions.jsonl`
 

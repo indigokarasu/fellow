@@ -28,7 +28,7 @@ Fellow exists because "looks better on paper" is not the same as "works better i
 
 **OCAS Skills**
 - [Mentor](https://github.com/indigokarasu/mentor) -- sole invoker; provides experiment programs and approves promotions
-- [Elephas](https://github.com/indigokarasu/elephas) -- stores experiment lineage and artifacts via signal intake
+- [Elephas](https://github.com/indigokarasu/elephas) -- stores experiment lineage and artifacts via journal signal payloads
 
 **External**
 - None
