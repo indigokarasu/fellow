@@ -9,7 +9,7 @@ description: >
 metadata:
   author: Indigo Karasu
   email: mx.indigo.karasu@gmail.com
-  version: "2.6.1"
+  version: "2.6.2"
   hermes:
     tags: [experimentation, benchmarks, evaluation]
     category: evolution
@@ -349,7 +349,7 @@ public
 This skill self-updates every 24 hours via:
 
 ```bash
-openclaw fellow.update
+fellow.update
 ```
 
 This pulls the latest version from GitHub and restarts the skill's background tasks if applicable.
