@@ -15,7 +15,7 @@ metadata:
     category: evolution
     cron:
       - name: "fellow:update"
-        schedule: "0 0 * * *"
+        schedule: "20 7 * * *"
         command: "fellow.update"
   openclaw:
     skill_type: system
@@ -34,7 +34,7 @@ metadata:
       requires_binaries: [gh, tar, python3]
     cron:
       - name: "fellow:update"
-        schedule: "0 0 * * *"
+        schedule: "20 7 * * *"
         command: "fellow.update"
 ---
 
