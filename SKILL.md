@@ -9,7 +9,7 @@ description: >
 metadata:
   author: Indigo Karasu
   email: mx.indigo.karasu@gmail.com
-  "2.6.5"
+  version: "2.6.5"
   hermes:
     tags: [experimentation, benchmarks, evaluation]
     category: evolution
