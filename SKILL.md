@@ -42,7 +42,6 @@ metadata:
 
 Fellow is the system's empirical optimization engine, invoked exclusively by Mentor to determine which implementation of a skill, prompt, heuristic, or workflow actually performs best — not which one looks best on paper. It runs controlled experiments with a fixed benchmark and compute budget, establishes a fresh baseline before testing any variant, and returns the winning result with full mutation lineage so every promotion is traceable and reversible.
 
-
 ## When to use
 
 Fellow is not user-invocable. It is called only by Mentor when:
@@ -51,14 +50,12 @@ Fellow is not user-invocable. It is called only by Mentor when:
 - A prompt, heuristic, or workflow needs optimization
 - Mentor needs to compare champion vs challenger implementations
 
-
 ## When not to use
 
 - User-initiated requests — Fellow is Mentor-only
 - Skill building or design — use Forge
 - Pattern analysis — use Corvus
 - Web research — use Sift
-
 
 ## Responsibility boundary
 
@@ -67,7 +64,6 @@ Fellow owns empirical experimentation: baseline establishment, variant generatio
 Fellow does not own: deciding what to improve (Mentor), building skill packages (Forge), knowledge persistence (Elephas), behavioral refinement (Praxis).
 
 Mentor provides direction. Fellow provides empirical optimization. Elephas stores lineage and artifacts.
-
 
 ## Ontology types
 
@@ -78,11 +74,9 @@ Fellow observes entity types during experiment execution:
 
 Fellow does not emit Signals to Elephas for these observations. Journal entries may include entity observations for internal lineage tracking, but they are not promoted to Chronicle. Elephas consumes Fellow journals for reference only and does not extract Chronicle candidates from them.
 
-
 ## Invocation guard
 
 Fellow is not user-invocable. If triggered directly by a user prompt, respond: "Fellow is an internal engine invoked only by Mentor for benchmark experiments. For skill evaluation, use Mentor."
-
 
 ## Inter-skill interfaces
 
@@ -91,7 +85,6 @@ Fellow is not user-invocable. If triggered directly by a user prompt, respond: "
 **Fellow → Mentor (cooperative read):** Fellow writes CycleResult files to `{agent_root}/commons/data/ocas-fellow/results/{cycle_id}.json`. Mentor reads from this directory. Fellow does not write to Mentor's directories.
 
 See `spec-ocas-interfaces.md` for schemas and handoff contracts.
-
 
 ## Invocation contract
 
@@ -124,7 +117,6 @@ metric_extractor:
   selector: <metric_path>
 ```
 
-
 ## Experiment lifecycle
 
 1. Establish baseline — run champion against benchmark with identical conditions
@@ -138,11 +130,9 @@ metric_extractor:
 
 Default limits: max_variants_per_cycle: 20, max_cycles_per_target: 5, max_parallel_runs: 1, plateau_window: 5.
 
-
 ## Baseline protocol
 
 Before testing any variant, a fresh baseline evaluation runs under identical conditions: same benchmark, runtime budget, seed policy, and evaluation harness. Baseline artifacts are immutable during the cycle. Baseline failure aborts the cycle.
-
 
 ## Mutation engine
 
@@ -150,11 +140,9 @@ Supported methods: parameter_sweep, patch_diff, template_substitution, controlle
 
 Constraints: modify only allowed mutation surfaces, never alter protected surfaces, maintain interface compatibility. Every variant records: variant_id, parent_variant, mutation_method, change_summary.
 
-
 ## Promotion rule
 
 A variant is promotable only when: variant_score >= baseline_score + improvement_threshold (default: 0.03). Variants failing guardrails are rejected. Mentor may automatically promote or require manual approval.
-
 
 ## Cycle output
 
@@ -172,7 +160,6 @@ artifacts_ref:
 rollback_ref:
 ```
 
-
 ## Run completion
 
 After every experiment cycle:
@@ -189,14 +176,12 @@ After every experiment cycle:
 - Baseline failure: abort cycle, notify Mentor
 - Benchmark failure: invalidate cycle, abort experiment
 
-
 ## Commands
 
 - `fellow.experiment.run` — execute an experiment cycle from Mentor invocation payload
 - `fellow.experiment.status` — current experiment state if in progress
 - `fellow.journal` — write journal for the current run; called at end of every run
 - `fellow.update` — pull latest from GitHub source; preserves journals and data
-
 
 ## Storage layout
 
@@ -219,7 +204,6 @@ After every experiment cycle:
     {run_id}.json
 ```
 
-
 Default config.json:
 ```json
 {
@@ -241,7 +225,6 @@ Default config.json:
   }
 }
 ```
-
 
 ## OKRs
 
@@ -266,12 +249,10 @@ skill_okrs:
     evaluation_window: 30_runs
 ```
 
-
 ## Optional skill cooperation
 
 - Mentor — sole invoker; provides experiment programs and approves promotions
 - Elephas — stores experiment lineage and artifacts via journal signal payloads; journal entity observations consumed during Chronicle ingestion
-
 
 ## Journal outputs
 
@@ -287,7 +268,6 @@ Each entity observation must include a `user_relevance` field:
 - `user` — the entity is directly related to the user's world (e.g., experiments about user preferences or user-facing features)
 - `agent_only` — encountered incidentally as part of system-internal experimentation (most Fellow entities fall here)
 - `unknown` — relevance to the user is unclear
-
 
 ## Initialization
 
@@ -310,7 +290,6 @@ On first invocation by Mentor, run `fellow.init`:
 # Task declared in SKILL.md frontmatter metadata.{platform}.cron
 ```
 
-
 ## Self-update
 
 `fellow.update` pulls the latest package from the `source:` URL in this file's frontmatter. Runs silently — no output unless the version changed or an error occurred.
@@ -331,11 +310,9 @@ On first invocation by Mentor, run `fellow.init`:
 6. On failure → retry once. If second attempt fails, report the error and stop.
 7. Output exactly: `I updated Fellow from version {old} to {new}`
 
-
 ## Visibility
 
 public
-
 
 ## Support file map
 
