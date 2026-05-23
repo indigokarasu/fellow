@@ -1,41 +1,15 @@
 ---
 name: ocas-fellow
-description: >
-  Fellow: empirical experimentation engine. Invoked by Mentor to evaluate,
-  compare, and promote improvements to OCAS skills, prompts, heuristics, and
-  workflows using benchmark-driven experiments. Returns best variant result
-  with lineage. Not user-invocable -- called only by Mentor. Trigger phrases:
-  'update fellow'.
+description: 'Fellow: empirical experimentation engine. Invoked by Mentor to evaluate,
+  compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows
+  using benchmark-driven experiments. Returns best variant result with lineage. Not
+  user-invocable -- called only by Mentor. Trigger phrases: ''update fellow''.
+
+  '
+license: MIT
 metadata:
   author: Indigo Karasu
-  email: mx.indigo.karasu@gmail.com
-  version: "2.6.5"
-  hermes:
-    tags: [experimentation, benchmarks, evaluation]
-    category: evolution
-    cron:
-      - name: "fellow:update"
-        schedule: "20 7 * * *"
-        command: "fellow.update"
-  openclaw:
-    skill_type: system
-    visibility: public
-    filesystem:
-      read:
-        - "{agent_root}/commons/data/ocas-fellow/"
-        - "{agent_root}/commons/journals/ocas-fellow/"
-      write:
-        - "{agent_root}/commons/data/ocas-fellow/"
-        - "{agent_root}/commons/journals/ocas-fellow/"
-    self_update:
-      source: "https://github.com/indigokarasu/fellow"
-      mechanism: "version-checked tarball from GitHub via gh CLI"
-      command: "fellow.update"
-      requires_binaries: [gh, tar, python3]
-    cron:
-      - name: "fellow:update"
-        schedule: "20 7 * * *"
-        command: "fellow.update"
+  version: 2.6.5
 ---
 
 # Fellow
