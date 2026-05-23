@@ -183,6 +183,15 @@ After every experiment cycle:
 - `fellow.journal` — write journal for the current run; called at end of every run
 - `fellow.update` — pull latest from GitHub source; preserves journals and data
 
+## Recovery Behavior
+
+This skill implements the recovery contract from `spec-ocas-recovery.md`.
+
+- **Evidence**: Every experiment run writes evidence to `{agent_root}/commons/data/ocas-fellow/evidence.jsonl`, including no-op runs with mandatory `not_activity_reason`.
+- **Gap detection**: On every wake, checks evidence log for most recent run. If gap exceeds 24h for update cron, logs `gap_detected`.
+- **Degraded mode**: When Mentor or experiment harness unavailable, logs `degraded: <dependency>` and queues work for retry.
+- **Log compaction**: Evidence logs older than 30 days (no-op) or 90 days (error/gap) compacted. Escalation records never auto-deleted. Last 7 days retained.
+
 ## Storage layout
 
 ```
@@ -191,6 +200,8 @@ After every experiment cycle:
   experiments.jsonl
   decisions.jsonl
   requests_processed.jsonl
+  intents.jsonl
+  evidence.jsonl
   results/
     {cycle_id}.json
   runs/
@@ -244,6 +255,16 @@ skill_okrs:
     evaluation_window: 30_runs
   - name: baseline_stability
     metric: fraction of baselines completing successfully
+    direction: maximize
+    target: 0.99
+    evaluation_window: 30_runs
+  - name: schedule_adherence
+    metric: fraction of cron runs executing within 5 minutes of scheduled time
+    direction: maximize
+    target: 0.95
+    evaluation_window: 30_days
+  - name: data_integrity
+    metric: fraction of experiment records with complete, non-corrupted evidence
     direction: maximize
     target: 0.99
     evaluation_window: 30_runs
