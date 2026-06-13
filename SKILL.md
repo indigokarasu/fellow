@@ -1,24 +1,33 @@
 ---
 name: ocas-fellow
-description: 'Fellow: empirical experimentation engine. Invoked by Mentor to evaluate,
-  compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows
-  using benchmark-driven experiments. Returns best variant result with lineage. Not
-  user-invocable -- called only by Mentor. Trigger phrases: ''update fellow''.
-
-'
+description: 'Empirical experimentation engine. Invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows using benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable — called only by Mentor.'
 license: MIT
 source: https://github.com/indigokarasu/fellow
 includes:
-  - references/**
-
+- references/**
 metadata:
-  author: Indigo Karasu
+  author: Indigo Karasu (indigokarasu)
   version: 2.6.5
+tags:
+- experimentation
+- A/B-testing
+- evaluation
+- OCAS-core
+triggers:
+- run experiments
+- A/B test skills
+- empirical evaluation
+- skill comparison
+- experiment engine
 ---
 
 # Fellow
 
 Fellow is the system's empirical optimization engine, invoked exclusively by Mentor to determine which implementation of a skill, prompt, heuristic, or workflow actually performs best — not which one looks best on paper. It runs controlled experiments with a fixed benchmark and compute budget, establishes a fresh baseline before testing any variant, and returns the winning result with full mutation lineage so every promotion is traceable and reversible.
+
+## Interactive Menu
+
+When invoked interactively, present a two-level menu. See `references/interactive-menu.md` for the full menu structure.
 
 ## When to Use
 
