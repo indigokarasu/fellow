@@ -37,24 +37,26 @@ Fellow is not user-invocable. It is called only by Mentor when:
 - A prompt, heuristic, or workflow needs optimization
 - Mentor needs to compare champion vs challenger implementations
 
+For example, when Mentor proposes a new heuristic for skill promotion, Fellow runs a controlled experiment to compare it against the baseline.
+
 ## When NOT to Use
 
 - User-initiated requests — Fellow is Mentor-only
 - Skill building or design — use Forge
-- Pattern analysis — use Corvus
+- Pattern analysis — query Chronicle directly
 - Web research — use Sift
 
 ## Responsibility boundary
 
-Fellow owns empirical experimentation: baseline establishment, variant generation, benchmark execution, metric extraction, and promotion decisions.
+Fellow owns empirical experimentation: baseline establishment, variant generation, benchmark execution, metric extraction, and promotion decisions. This division exists because Mentor lacks the compute budget for controlled experiments, while Fellow lacks strategic direction.
 
-Fellow does not own: deciding what to improve (Mentor), building skill packages (Forge), knowledge persistence (Elephas), behavioral refinement (Praxis).
+Fellow does not own: deciding what to improve (Mentor), building skill packages (Forge), behavioral refinement (Praxis).
 
-Mentor provides direction. Fellow provides empirical optimization. Elephas stores lineage and artifacts.
+Mentor provides direction. Fellow provides empirical optimization.
 
 ## Ontology Types
 
-Fellow observes entity types during experiment execution (Concept/Idea, Thing/DigitalArtifact, Concept/Event). Fellow does not emit Signals to Elephas for these observations. See `references/schemas.md` for full details.
+Fellow observes entity types during experiment execution (Concept/Idea, Thing/DigitalArtifact, Concept/Event). Fellow includes entity observations in journal outputs for Chronicle ingestion. See `references/schemas.md` for full details.
 
 ## Invocation Guard
 
@@ -95,7 +97,7 @@ Universal OKRs from spec-ocas-journal.md apply to all runs. See `references/sche
 ## Optional skill cooperation
 
 - Mentor — sole invoker; provides experiment programs and approves promotions
-- Elephas — stores experiment lineage and artifacts via journal signal payloads; journal entity observations consumed during Chronicle ingestion
+- Chronicle — experiment lineage and entity observations written via journal signal payloads
 
 ## Journal Outputs
 
