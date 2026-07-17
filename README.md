@@ -1,24 +1,15 @@
-# 🔎 Fellow
+# fellow
 
-> **Experimentation engine — runs controlled benchmark experiments to validate skill improvements.**
+<p align="center">
+<img src="./assets/readme/hero.svg" width="100%" alt="Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.">
+</p>
 
-## Why Fellow?
+fellow — Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.
 
-How do you know if a skill improvement actually made things better? Fellow answers that by running controlled benchmark experiments. When Mentor generates an improvement proposal, Fellow designs and executes the experiment, measures outcomes against baselines, and produces evidence-based results.
 
-Skill packages follow the [agentskills.io](https://agentskills.io/specification) open standard and are compatible with OpenClaw, Hermes Agent, Claude, and any agentskills.io-compliant client.
+> Tell it what you need. It does the work.
 
-## Quick Start
-
-```
-# Run an experiment
-"Run a benchmark comparing the old and new versions of Sands"
-
-# Check results
-"What were the results of the last experiment?"
-```
-
-## What It Does
+## What it does
 
 Fellow is the empirical testing arm of the OCAS self-improvement loop. It receives experiment requests (typically routed through Mentor), designs controlled benchmarks, executes them, and measures outcomes. Results flow back to Mentor for evaluation and potential promotion.
 
@@ -30,3 +21,7 @@ Fellow is the empirical testing arm of the OCAS self-improvement loop. It receiv
 ---
 
 *Fellow is part of the [OCAS Agent Suite](https://github.com/indigokarasu).*
+
+---
+
+*fellow is part of the [OCAS Agent Suite](https://github.com/indigokarasu).*
