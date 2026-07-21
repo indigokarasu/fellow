@@ -1,27 +1,12 @@
 # fellow
 
 <p align="center">
-<img src="./assets/readme/hero.jpg" width="100%" alt="Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.">
+  <img src="./assets/readme/hero.jpg" width="100%" alt="Fellow: runs controlled benchmark experiments to validate skill improvements">
 </p>
 
-fellow — Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.
+Fellow is the empirical testing arm of the OCAS self-improvement loop. It receives experiment requests from Mentor, designs controlled benchmarks, executes them, and measures outcomes. Results flow back to Mentor for evaluation and promotion decisions.
 
-
-> Tell it what you need. It does the work.
-
-## What it does
-
-Fellow is the empirical testing arm of the OCAS self-improvement loop. It receives experiment requests (typically routed through Mentor), designs controlled benchmarks, executes them, and measures outcomes. Results flow back to Mentor for evaluation and potential promotion.
-
-## Dependencies
-
-- [Mentor](https://github.com/indigokarasu/mentor) — receives experiment requests
-- Target skills under evaluation
-
----
-
-*Fellow is part of the [OCAS Agent Suite](https://github.com/indigokarasu).*
-
----
-
-*fellow is part of the [OCAS Agent Suite](https://github.com/indigokarasu).*
+**Capabilities:**
+- Controlled benchmark design and execution
+- Outcome measurement against defined baselines
+- Result reporting routed to Mentor
