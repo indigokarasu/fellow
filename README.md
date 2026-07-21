@@ -1,7 +1,7 @@
 # fellow
 
 <p align="center">
-<img src="./assets/readme/hero.svg" width="100%" alt="Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.">
+<img src="./assets/readme/hero.jpg" width="100%" alt="Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.">
 </p>
 
 fellow — Fellow: experimentation engine — runs controlled benchmark experiments to validate skill improvements.
