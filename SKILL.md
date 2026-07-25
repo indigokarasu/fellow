@@ -2,7 +2,7 @@
 name: ocas-fellow
 description: 'Empirical experimentation engine. Invoked by Mentor to evaluate, compare, and promote improvements to OCAS skills, prompts, heuristics, and workflows using benchmark-driven experiments. Returns best variant result with lineage. Not user-invocable — called only by Mentor.'
 license: MIT
-source: https://github.com/indigokarasu/fellow
+source: https://github.com/<agent-handle>/fellow
 includes:
 - references/**
 metadata:

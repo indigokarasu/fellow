@@ -8,7 +8,7 @@ Empirical experimentation engine. Invoked by Mentor to evaluate, compare, and pr
 **Version:** 2.6.5
 **Type:** 
 **Layer:** Execution
-**Author:** Indigo Karasu
+**Author:** <agent-name>
 
 ---
 
