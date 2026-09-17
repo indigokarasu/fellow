@@ -7,7 +7,7 @@ includes:
 - references/**
 metadata:
   author: Indigo Karasu (indigokarasu)
-  version: 2.6.5
+  version: "2.7.0"
 tags:
 - experimentation
 - A/B-testing
@@ -69,6 +69,8 @@ Fellow is not user-invocable. If triggered directly by a user prompt, respond: "
 ## Experiment Lifecycle
 
 See `references/schemas.md` for the full experiment lifecycle (8 steps), baseline protocol, mutation engine, promotion rule, cycle output schema, run completion procedure, and failure handling.
+
+**Skillgrade evaluation engine:** Fellow natively executes declarative `eval.yaml` suites (from a skill's `references/evals/eval.yaml`) inside isolated `ocas-inception` containers — challenger variants run with zero external side effects. Execution: run each eval task across N trials, apply deterministic + LLM-rubric graders, and return a `CycleResult` containing **trial pass rates, token metrics, and per-grader breakdowns** to Mentor (written to `{agent_root}/commons/data/ocas-fellow/results/`). These results feed Mentor's pass-rate promotion thresholds (≥0.85 / N≥5, N≥15 for core execution skills). See `spec-ocas-skill-improvements.md` §1.
 
 ## Commands
 
