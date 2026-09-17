@@ -1,5 +1,11 @@
 ## [2.6.5] - 2026-04-26
 
+## [2.7.0] - 2026-09-16
+
+### Changed
+- **Skillgrade evaluation engine** — Fellow natively executes declarative `eval.yaml` suites in isolated `ocas-inception` containers, returning `CycleResult` with trial pass rates, token metrics, and per-grader breakdowns to Mentor (feeding the ≥0.85 / N≥5, N≥15 promotion thresholds).
+
+
 ### Changed
 - Version alignment: SKILL.md frontmatter, CHANGELOG.md, and GitHub release tag now in sync per spec-ocas-skill-publishing.md. No functional change in this release.
 
