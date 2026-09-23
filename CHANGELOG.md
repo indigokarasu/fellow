@@ -54,7 +54,7 @@
 ### Added
 - Structured entity observations in journal payloads (`entities_observed`, `relationships_observed`, `preferences_observed`)
 - `user_relevance` tagging on journal observations (default `agent_only` for experiment entities, `user` for user-preference experiments)
-- Elephas journal cooperation in skill cooperation section
+- Chronicle journal cooperation in skill cooperation section
 
 ## 2.3.2
 
